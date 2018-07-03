@@ -17,3 +17,23 @@ this.$router.replace({name:'menulink'})
 通过push跳转
 this.$router.push('/menu')
 this.$router.push({name:'menulink'})
+
+
+全局守卫相当于一个拦截器，方法是 beforeEach
+router.beforeEach((to,from,next)=>{
+	/* alert('还没有登录，请先登录！');
+	next();//是否继续跳转，选false不跳转，里面可选跳转路径
+	console.log(to); */
+	
+ 	if (to.path == '/login'||to.path=='/register') {
+		next();//继续访问，相当于拦截器不限制
+	} else{
+		alert('还没有登录，请先登录！');
+		next('/login')
+	} 
+	
+});
+
+路由抽出时需要在main.js中引入
+import {routes} from './routes'
+任何需要将路由开发 即加上export
